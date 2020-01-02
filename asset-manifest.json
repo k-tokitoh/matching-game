@@ -1,22 +1,23 @@
 {
   "files": {
-    "main.css": "/matching-game/static/css/main.bd722fac.chunk.css",
-    "main.js": "/matching-game/static/js/main.31428e7d.chunk.js",
-    "main.js.map": "/matching-game/static/js/main.31428e7d.chunk.js.map",
+    "main.css": "/matching-game/static/css/main.fc959337.chunk.css",
+    "main.js": "/matching-game/static/js/main.9742af28.chunk.js",
+    "main.js.map": "/matching-game/static/js/main.9742af28.chunk.js.map",
     "runtime-main.js": "/matching-game/static/js/runtime-main.b4c58913.js",
     "runtime-main.js.map": "/matching-game/static/js/runtime-main.b4c58913.js.map",
-    "static/js/2.e6c2cd59.chunk.js": "/matching-game/static/js/2.e6c2cd59.chunk.js",
-    "static/js/2.e6c2cd59.chunk.js.map": "/matching-game/static/js/2.e6c2cd59.chunk.js.map",
+    "static/js/2.e17e2be4.chunk.js": "/matching-game/static/js/2.e17e2be4.chunk.js",
+    "static/js/2.e17e2be4.chunk.js.map": "/matching-game/static/js/2.e17e2be4.chunk.js.map",
     "index.html": "/matching-game/index.html",
-    "precache-manifest.afd5dd791de3a13de7a5beb110ba695a.js": "/matching-game/precache-manifest.afd5dd791de3a13de7a5beb110ba695a.js",
+    "precache-manifest.264aa264e7d11abbf347af8705ecac67.js": "/matching-game/precache-manifest.264aa264e7d11abbf347af8705ecac67.js",
     "service-worker.js": "/matching-game/service-worker.js",
-    "static/css/main.bd722fac.chunk.css.map": "/matching-game/static/css/main.bd722fac.chunk.css.map",
-    "static/js/2.e6c2cd59.chunk.js.LICENSE": "/matching-game/static/js/2.e6c2cd59.chunk.js.LICENSE"
+    "static/css/main.fc959337.chunk.css.map": "/matching-game/static/css/main.fc959337.chunk.css.map",
+    "static/js/2.e17e2be4.chunk.js.LICENSE": "/matching-game/static/js/2.e17e2be4.chunk.js.LICENSE",
+    "static/media/logo.svg": "/matching-game/static/media/logo.fac8ebeb.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.b4c58913.js",
-    "static/js/2.e6c2cd59.chunk.js",
-    "static/css/main.bd722fac.chunk.css",
-    "static/js/main.31428e7d.chunk.js"
+    "static/js/2.e17e2be4.chunk.js",
+    "static/css/main.fc959337.chunk.css",
+    "static/js/main.9742af28.chunk.js"
   ]
 }

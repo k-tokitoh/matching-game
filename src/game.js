@@ -1,7 +1,6 @@
 import React from 'react';
 import Card from './card';
 import GameHeader from './game_header';
-// import './App.css';
 
 class Game extends React.Component {
   constructor(props) {
@@ -60,7 +59,7 @@ class Game extends React.Component {
           } else {
             return card
           }
-        });  
+        });
         break;
       case 2:
         const success = this.judge();
@@ -76,11 +75,7 @@ class Game extends React.Component {
     this.setState({
       cards: updatedCards
     });
-    
-
-
-    console.log(this);
-  };
+  }
 
   renderCards() {
     return this.state.cards.map(card => {
@@ -88,7 +83,7 @@ class Game extends React.Component {
         <Card card={card} onClick={() => this.cardOnClick(card)} />
       )
     })
-  }
+  };
 
   render() {
     return(

@@ -5,23 +5,26 @@ import GameHeader from './game_header';
 class Game extends React.Component {
   constructor(props) {
     super(props);
+    let chars = [];
+    for (let i = 0; i < 6; i++) {
+      for (let j = 0; j < 2; j++) {
+        chars.push(String.fromCodePoint('A'.charCodeAt() + i));
+      }
+    }
+    for(var i = chars.length - 1; i > 0; i--){
+      var r = Math.floor(Math.random() * (i + 1));
+      var tmp = chars[i];
+      chars[i] = chars[r];
+      chars[r] = tmp;
+    }
+    const cards = chars.map((char, index) => {
+      return { id: index,  text: char, status: 'turnedDown' }
+    });
+
     this.state = {
       mistake: 0,
       point: 0,
-      cards:[
-        { id: 0,  text: 'B', status: 'turnedDown' },
-        { id: 1,  text: 'D', status: 'turnedDown' },
-        { id: 2,  text: 'F', status: 'turnedDown' },
-        { id: 3,  text: 'F', status: 'turnedDown' },
-        { id: 4,  text: 'A', status: 'turnedDown' },
-        { id: 5,  text: 'D', status: 'turnedDown' },
-        { id: 6,  text: 'C', status: 'turnedDown' },
-        { id: 7,  text: 'B', status: 'turnedDown' },
-        { id: 8,  text: 'E', status: 'turnedDown' },
-        { id: 9,  text: 'A', status: 'turnedDown' },
-        { id: 10, text: 'C', status: 'turnedDown' },
-        { id: 11, text: 'E', status: 'turnedDown' },
-      ]
+      cards: cards
     };
     this.cardOnClick = this.cardOnClick.bind(this);
   }

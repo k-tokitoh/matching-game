@@ -1,4 +1,5 @@
 import React from 'react';
+import logo from './logo.svg';
 
 function Card(props) {
   let ret;
@@ -12,7 +13,9 @@ function Card(props) {
       break;
     case 'turnedDown':
       ret = (
-        <div className="Card turnedDown" onClick={props.onClick}></div>
+        <div className="Card turnedDown" onClick={props.onClick}>
+          <img src={logo} />
+        </div>
       );
       break;
     case 'taken':

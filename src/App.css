@@ -28,6 +28,11 @@
   align-items: center;
 }
 
+.Card img {
+  height: 36px;
+  width: 36px;
+}
+
 .turnedUp {
   border: solid 2px #808000;
 }

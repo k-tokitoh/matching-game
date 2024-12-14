@@ -3,15 +3,22 @@ import { Card } from "../Card/Card";
 import GameHeader from "../GameHeader/GameHeader";
 import "./Game.css";
 
-class Game extends React.Component {
-  constructor(props) {
-    super(props);
+type TCard = {
+  id: number;
+  text: string;
+  status: "turnedUp" | "turnedDown" | "taken";
+};
+
+export const Game: React.FC = () => {
+  const initCards = () => {
     let chars = [];
+    // AからFまでを2つずつ
     for (let i = 0; i < 6; i++) {
       for (let j = 0; j < 2; j++) {
         chars.push(String.fromCodePoint("A".charCodeAt() + i));
       }
     }
+    // ランダムに並び替え
     for (var i = chars.length - 1; i > 0; i--) {
       var r = Math.floor(Math.random() * (i + 1));
       var tmp = chars[i];
@@ -21,44 +28,37 @@ class Game extends React.Component {
     const cards = chars.map((char, index) => {
       return { id: index, text: char, status: "turnedDown" };
     });
+    return cards;
+  };
 
-    this.state = {
-      mistake: 0,
-      point: 0,
-      cards: cards,
-    };
-    this.cardOnClick = this.cardOnClick.bind(this);
-  }
+  const [cards, setCards] = React.useState<Array<TCard>>(initCards());
+  const [point, setPoint] = React.useState(0);
+  const [mistake, setMistake] = React.useState(0);
 
-  turnedUpCards() {
-    return this.state.cards.filter((card) => card.status === "turnedUp");
-  }
+  const turnedUpCards = () => {
+    return cards.filter((card) => card.status === "turnedUp");
+  };
 
-  judge() {
+  const judge = () => {
     const success =
-      [...new Set(this.turnedUpCards().map((card) => card.text))].length === 1;
+      [...new Set(turnedUpCards().map((card) => card.text))].length === 1;
     if (success) {
-      const updatedPoint = this.state.point + 1;
-      this.setState({
-        point: updatedPoint,
-      });
+      setPoint(point + 1);
     } else {
-      const updatedMistake = this.state.mistake + 1;
-      this.setState({
-        mistake: updatedMistake,
-      });
+      setMistake(mistake + 1);
     }
     return success;
-  }
+  };
 
-  cardOnClick(turnedCard) {
-    let cards = this.state.cards.slice();
+  const cardOnClick = (turnedCard: any) => {
+    let c = cards.slice();
     let updatedCards;
 
-    switch (this.turnedUpCards().length) {
+    switch (turnedUpCards().length) {
+      // めくられたカードが0or1ならめくる
       case 0:
       case 1:
-        updatedCards = cards.map((card) => {
+        updatedCards = c.map((card) => {
           if (card.id === turnedCard.id) {
             return { id: card.id, text: card.text, status: "turnedUp" };
           } else {
@@ -66,11 +66,12 @@ class Game extends React.Component {
           }
         });
         break;
+      // めくられたカードが2なら判定する
       case 2:
-        const success = this.judge();
+        const success = judge();
         updatedCards = cards.map((card) => {
           if (
-            this.turnedUpCards()
+            turnedUpCards()
               .map((card) => card.id)
               .includes(card.id)
           ) {
@@ -85,25 +86,20 @@ class Game extends React.Component {
         });
     }
 
-    this.setState({
-      cards: updatedCards,
+    setCards(updatedCards);
+  };
+
+  // カードを描画
+  const renderCards = () => {
+    return cards.map((card) => {
+      return <Card card={card} onClick={() => cardOnClick(card)} />;
     });
-  }
+  };
 
-  renderCards() {
-    return this.state.cards.map((card) => {
-      return <Card card={card} onClick={() => this.cardOnClick(card)} />;
-    });
-  }
-
-  render() {
-    return (
-      <div className="Game">
-        <GameHeader point={this.state.point} mistake={this.state.mistake} />
-        {this.renderCards()}
-      </div>
-    );
-  }
-}
-
-export default Game;
+  return (
+    <div className="Game">
+      <GameHeader point={point} mistake={mistake} />
+      {renderCards()}
+    </div>
+  );
+};

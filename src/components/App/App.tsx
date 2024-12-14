@@ -2,12 +2,10 @@ import * as React from "react";
 import { Game } from "../Game/Game";
 import "./App.css";
 
-function App() {
+export const App: React.FC = () => {
   return (
     <div className="App">
       <Game />
     </div>
   );
-}
-
-export default App;
+};

@@ -1,0 +1,7 @@
+.GameHeader {
+  width: 100%;
+}
+
+.GameHeader li {
+  list-style: none;
+}

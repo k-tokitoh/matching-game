@@ -1,5 +1,6 @@
 import React from "react";
 import logo from "../public/logo.svg";
+import "./Card.css";
 
 function Card(props) {
   let ret;

@@ -1,4 +1,5 @@
 import React from "react";
+import "./GameHeader.css";
 
 function GameHeader(props) {
   return (

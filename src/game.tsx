@@ -1,6 +1,7 @@
 import React from "react";
 import Card from "./Card";
 import GameHeader from "./GameHeader";
+import "./Game.css";
 
 class Game extends React.Component {
   constructor(props) {

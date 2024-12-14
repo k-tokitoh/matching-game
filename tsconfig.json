@@ -4,6 +4,7 @@
     "noEmit": true,
     "paths": {
       "~public/*": ["./public/*"]
-    }
+    },
+    "types": ["vitest/globals"]
   }
 }

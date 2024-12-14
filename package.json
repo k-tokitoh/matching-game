@@ -7,21 +7,22 @@
     "start": "vite",
     "build": "tsc --noEmit && vite build",
     "serve": "vite preview",
-    "typegen:css": "tcm ."
+    "typegen:css": "tcm .",
+    "test": "vitest"
   },
   "dependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "@testing-library/react": "^16.1.0",
     "@types/node": "^22.10.2",
     "@vitejs/plugin-react": "^4.3.4",
+    "jsdom": "^25.0.1",
     "prettier": "^3.4.2",
     "typed-css-modules": "^0.9.1",
-    "vite": "^6.0.3"
+    "vite": "^6.0.3",
+    "vitest": "^2.1.8"
   },
   "eslintConfig": {
     "extends": "react-app"

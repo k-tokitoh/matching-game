@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Card } from "../Card/Card";
-import { GameHeader } from "../GameHeader/GameHeader";
+import { ScoreBoard } from "../ScoreBoard/ScoreBoard";
 import "./Game.css";
 
 type TCard = {
@@ -98,7 +98,7 @@ export const Game: React.FC = () => {
 
   return (
     <div className="game">
-      <GameHeader point={point} mistake={mistake} />
+      <ScoreBoard point={point} mistake={mistake} />
       {renderCards()}
     </div>
   );

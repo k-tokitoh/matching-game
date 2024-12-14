@@ -1,12 +1,12 @@
 import * as React from "react";
-import "./GameHeader.css";
+import "./ScoreBoard.css";
 
 type Props = {
   point: number;
   mistake: number;
 };
 
-export const GameHeader: React.FC<Props> = ({ point, mistake }) => {
+export const ScoreBoard: React.FC<Props> = ({ point, mistake }) => {
   return (
     <ul className="game-header">
       <li>point: {point}</li>

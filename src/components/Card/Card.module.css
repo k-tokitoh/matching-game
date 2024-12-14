@@ -5,6 +5,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  border: solid 2px #808000;
 }
 
 .card img {
@@ -12,15 +14,10 @@
   width: 36px;
 }
 
-.up {
-  border: solid 2px #808000;
-}
-
 .down {
   background-color: #c0c0c0;
-  border: solid 2px #808000;
 }
 
 .taken {
-  border: solid 2px #fff;
+   visibility: hidden;
 }

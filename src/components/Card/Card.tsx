@@ -46,6 +46,8 @@ export const Card: React.FC<Props> = ({ cardData, onClick }) => {
     <div
       className={`${styles.card} ${styles[className]}`}
       onClick={clickable ? onClick : undefined}
+      // できればテストではroleやラベルを利用して実装詳細への依存を避けたいが、ここではやむなくtestidを付与
+      data-testid="card"
     >
       {renderContent(cardData.text)}
     </div>

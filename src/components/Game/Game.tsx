@@ -6,9 +6,13 @@ import { ScoreBoard } from "../ScoreBoard/ScoreBoard";
 import * as styles from "./Game.module.css";
 import { useGame } from "./useGame";
 
-export const Game: React.FC = () => {
+type Props = {
+  randomize?: boolean;
+};
+
+export const Game: React.FC<Props> = ({ randomize = true }) => {
   const { point, mistake, cards, onCardClick, onClick } = useGame({
-    randomize: true,
+    randomize,
   });
 
   return (

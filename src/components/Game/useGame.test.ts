@@ -1,5 +1,4 @@
 import { act, renderHook } from "@testing-library/react";
-import { describe, expect } from "vitest";
 import { useGame } from "./useGame";
 
 describe("useGame フック", () => {

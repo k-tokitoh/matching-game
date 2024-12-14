@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import Card from "../Card/Card";
 import GameHeader from "../GameHeader/GameHeader";
 import "./Game.css";

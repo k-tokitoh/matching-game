@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import * as path from "path";
 
 export default defineConfig({
   server: {
@@ -10,4 +11,9 @@ export default defineConfig({
     outDir: "build", // ビルドの出力先ディレクトリ
   },
   plugins: [react()],
+  resolve: {
+    alias: {
+      "~public": path.resolve(__dirname, "public"),
+    },
+  },
 });

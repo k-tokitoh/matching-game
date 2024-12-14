@@ -1,105 +1,92 @@
 import * as React from "react";
-import { Card } from "../Card/Card";
+import { Card as CardComponent, CardData } from "../Card/Card";
 import { ScoreBoard } from "../ScoreBoard/ScoreBoard";
 import "./Game.css";
 
-type TCard = {
-  id: number;
-  text: string;
-  status: "turnedUp" | "turnedDown" | "taken";
+type Card = CardData & {
+  readonly id: number;
 };
 
 export const Game: React.FC = () => {
-  const initCards = () => {
-    let chars = [];
-    // AからFまでを2つずつ
-    for (let i = 0; i < 6; i++) {
-      for (let j = 0; j < 2; j++) {
-        chars.push(String.fromCodePoint("A".charCodeAt() + i));
-      }
+  const [cards, seCards] = React.useState<ReadonlyArray<Card>>(iniCards());
+  const [point, setPoint] = React.useState<number>(0);
+  const [mistake, setMistake] = React.useState<number>(0);
+
+  const upCards: ReadonlyArray<Card> = cards.filter(
+    ({ status }) => status === "up"
+  );
+  const canFlip: boolean = upCards.length < 2;
+
+  const paired: boolean =
+    // 2枚めくられていて
+    upCards.length === 2 &&
+    // めくられたカードが同じ文字
+    upCards.reduce((acc, card) => acc.add(card.text), new Set<string>())
+      .size === 1;
+
+  const onCardClick = (target: Card) => {
+    if (canFlip) {
+      // めくれる場合は、クリックされたカードを表にする
+      seCards(
+        cards.map((card) =>
+          card.id === target.id ? { ...card, status: "up" } : card
+        )
+      );
     }
-    // ランダムに並び替え
-    for (var i = chars.length - 1; i > 0; i--) {
-      var r = Math.floor(Math.random() * (i + 1));
-      var tmp = chars[i];
-      chars[i] = chars[r];
-      chars[r] = tmp;
-    }
-    const cards = chars.map((char, index) => {
-      return { id: index, text: char, status: "turnedDown" };
-    });
-    return cards;
   };
 
-  const [cards, setCards] = React.useState<Array<TCard>>(initCards());
-  const [point, setPoint] = React.useState(0);
-  const [mistake, setMistake] = React.useState(0);
+  const onClick = () => {
+    // まだめくれる場合は何もしない
+    if (canFlip) return;
 
-  const turnedUpCards = () => {
-    return cards.filter((card) => card.status === "turnedUp");
-  };
-
-  const judge = () => {
-    const success =
-      [...new Set(turnedUpCards().map((card) => card.text))].length === 1;
-    if (success) {
-      setPoint(point + 1);
+    // それ以上めくれない場合は判定する
+    if (paired) {
+      setPoint((point) => point + 1);
+      // 表になっているカードを取り除く
+      seCards((cards) =>
+        cards.map((card) => {
+          const nextStatus = card.status === "up" ? "taken" : card.status;
+          return { ...card, status: nextStatus };
+        })
+      );
     } else {
-      setMistake(mistake + 1);
+      setMistake((mistake) => mistake + 1);
+      // 全部裏にする
+      seCards((cards) => cards.map((card) => ({ ...card, status: "down" })));
     }
-    return success;
-  };
-
-  const cardOnClick = (turnedCard: any) => {
-    let c = cards.slice();
-    let updatedCards;
-
-    switch (turnedUpCards().length) {
-      // めくられたカードが0or1ならめくる
-      case 0:
-      case 1:
-        updatedCards = c.map((card) => {
-          if (card.id === turnedCard.id) {
-            return { id: card.id, text: card.text, status: "turnedUp" };
-          } else {
-            return card;
-          }
-        });
-        break;
-      // めくられたカードが2なら判定する
-      case 2:
-        const success = judge();
-        updatedCards = cards.map((card) => {
-          if (
-            turnedUpCards()
-              .map((card) => card.id)
-              .includes(card.id)
-          ) {
-            return {
-              id: card.id,
-              text: card.text,
-              status: success ? "taken" : "turnedDown",
-            };
-          } else {
-            return { id: card.id, text: card.text, status: card.status };
-          }
-        });
-    }
-
-    setCards(updatedCards);
-  };
-
-  // カードを描画
-  const renderCards = () => {
-    return cards.map((card) => {
-      return <Card card={card} onClick={() => cardOnClick(card)} />;
-    });
   };
 
   return (
-    <div className="game">
+    <div className="game" onClick={onClick}>
       <ScoreBoard point={point} mistake={mistake} />
-      {renderCards()}
+      {cards.map((card) => (
+        <CardComponent
+          cardData={card}
+          onClick={() => onCardClick(card)}
+          key={card.id}
+        />
+      ))}
     </div>
   );
+};
+
+const iniCards = (): ReadonlyArray<Card> => {
+  // AからFまでを2つずつ
+  const chars = Array.from({ length: 6 }).flatMap((_, i) =>
+    new Array(2).fill(String.fromCodePoint("A".charCodeAt(0) + i))
+  );
+
+  // ランダムに並び替え
+  for (var i = chars.length - 1; i > 0; i--) {
+    var r = Math.floor(Math.random() * (i + 1));
+    var tmp = chars[i];
+    chars[i] = chars[r];
+    chars[r] = tmp;
+  }
+
+  return chars.map((char, index) => ({
+    id: index,
+    text: char,
+    status: "down",
+  }));
 };

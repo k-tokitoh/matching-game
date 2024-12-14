@@ -4,11 +4,13 @@ import "./Card.css";
 
 type Status = "up" | "down" | "taken";
 
+export type CardData = {
+  readonly status: Status;
+  readonly text: string;
+};
+
 type Props = {
-  readonly card: {
-    readonly status: Status;
-    readonly text: string;
-  };
+  readonly cardData: CardData;
   readonly onClick: () => void;
 };
 
@@ -36,15 +38,15 @@ const attrs = {
   },
 } as const satisfies { [key in Status]: Attr };
 
-export const Card: React.FC<Props> = ({ card, onClick }) => {
-  const { className, clickable, renderContent } = attrs[card.status];
+export const Card: React.FC<Props> = ({ cardData, onClick }) => {
+  const { className, clickable, renderContent } = attrs[cardData.status];
 
   return (
     <div
       className={`card ${className}`}
       onClick={clickable ? onClick : undefined}
     >
-      {renderContent(card.text)}
+      {renderContent(cardData.text)}
     </div>
   );
 };

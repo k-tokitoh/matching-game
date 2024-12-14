@@ -1,6 +1,6 @@
-import React from 'react';
-import Card from './card';
-import GameHeader from './game_header';
+import React from "react";
+import Card from "./card";
+import GameHeader from "./game_header";
 
 class Game extends React.Component {
   constructor(props) {
@@ -8,93 +8,100 @@ class Game extends React.Component {
     let chars = [];
     for (let i = 0; i < 6; i++) {
       for (let j = 0; j < 2; j++) {
-        chars.push(String.fromCodePoint('A'.charCodeAt() + i));
+        chars.push(String.fromCodePoint("A".charCodeAt() + i));
       }
     }
-    for(var i = chars.length - 1; i > 0; i--){
+    for (var i = chars.length - 1; i > 0; i--) {
       var r = Math.floor(Math.random() * (i + 1));
       var tmp = chars[i];
       chars[i] = chars[r];
       chars[r] = tmp;
     }
     const cards = chars.map((char, index) => {
-      return { id: index,  text: char, status: 'turnedDown' }
+      return { id: index, text: char, status: "turnedDown" };
     });
 
     this.state = {
       mistake: 0,
       point: 0,
-      cards: cards
+      cards: cards,
     };
     this.cardOnClick = this.cardOnClick.bind(this);
   }
 
   turnedUpCards() {
-    return this.state.cards.filter(card => card.status === 'turnedUp' )
-  };
+    return this.state.cards.filter((card) => card.status === "turnedUp");
+  }
 
   judge() {
-    const success = [...new Set(this.turnedUpCards().map(card => card.text))].length === 1
+    const success =
+      [...new Set(this.turnedUpCards().map((card) => card.text))].length === 1;
     if (success) {
-      const updatedPoint = this.state.point + 1
+      const updatedPoint = this.state.point + 1;
       this.setState({
-        point: updatedPoint
-      })
+        point: updatedPoint,
+      });
     } else {
-      const updatedMistake = this.state.mistake + 1
+      const updatedMistake = this.state.mistake + 1;
       this.setState({
-        mistake: updatedMistake
-      })
+        mistake: updatedMistake,
+      });
     }
     return success;
   }
 
   cardOnClick(turnedCard) {
-    let cards = this.state.cards.slice()
+    let cards = this.state.cards.slice();
     let updatedCards;
 
-    switch(this.turnedUpCards().length) {
+    switch (this.turnedUpCards().length) {
       case 0:
       case 1:
-        updatedCards = cards.map(card => {
+        updatedCards = cards.map((card) => {
           if (card.id === turnedCard.id) {
-            return { id: card.id,  text: card.text, status: 'turnedUp' }
+            return { id: card.id, text: card.text, status: "turnedUp" };
           } else {
-            return card
+            return card;
           }
         });
         break;
       case 2:
         const success = this.judge();
-        updatedCards = cards.map(card => {
-          if (this.turnedUpCards().map(card => card.id).includes(card.id)) {
-            return { id: card.id,  text: card.text, status: (success ? 'taken' : 'turnedDown') }
+        updatedCards = cards.map((card) => {
+          if (
+            this.turnedUpCards()
+              .map((card) => card.id)
+              .includes(card.id)
+          ) {
+            return {
+              id: card.id,
+              text: card.text,
+              status: success ? "taken" : "turnedDown",
+            };
           } else {
-            return { id: card.id,  text: card.text, status: card.status }
+            return { id: card.id, text: card.text, status: card.status };
           }
         });
     }
 
     this.setState({
-      cards: updatedCards
+      cards: updatedCards,
     });
   }
 
   renderCards() {
-    return this.state.cards.map(card => {
-      return (
-        <Card card={card} onClick={() => this.cardOnClick(card)} />
-      )
-    })
-  };
+    return this.state.cards.map((card) => {
+      return <Card card={card} onClick={() => this.cardOnClick(card)} />;
+    });
+  }
 
   render() {
-    return(
+    return (
       <div className="Game">
-        <GameHeader point={this.state.point} mistake={this.state.mistake}/>
+        <GameHeader point={this.state.point} mistake={this.state.mistake} />
         {this.renderCards()}
       </div>
-    )
+    );
   }
 }
 

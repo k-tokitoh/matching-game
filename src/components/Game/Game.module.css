@@ -1,0 +1,14 @@
+.game {
+  height: 330px;
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+}
+
+.cards {
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px; /* カード間のスペースを追加する場合 */
+}
+

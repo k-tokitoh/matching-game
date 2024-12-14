@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Card as CardComponent, CardData } from "../Card/Card";
 import { ScoreBoard } from "../ScoreBoard/ScoreBoard";
-import "./Game.css";
+import * as styles from "./Game.module.css";
 
 type Card = CardData & {
   readonly id: number;
@@ -52,20 +52,27 @@ export const Game: React.FC = () => {
     } else {
       setMistake((mistake) => mistake + 1);
       // 全部裏にする
-      seCards((cards) => cards.map((card) => ({ ...card, status: "down" })));
+      seCards((cards) =>
+        cards.map((card) => {
+          const nextStatus = card.status === "up" ? "down" : card.status;
+          return { ...card, status: nextStatus };
+        })
+      );
     }
   };
 
   return (
-    <div className="game" onClick={onClick}>
+    <div className={styles.game} onClick={onClick}>
       <ScoreBoard point={point} mistake={mistake} />
-      {cards.map((card) => (
-        <CardComponent
-          cardData={card}
-          onClick={() => onCardClick(card)}
-          key={card.id}
-        />
-      ))}
+      <div className={styles.cards}>
+        {cards.map((card) => (
+          <CardComponent
+            cardData={card}
+            onClick={() => onCardClick(card)}
+            key={card.id}
+          />
+        ))}
+      </div>
     </div>
   );
 };

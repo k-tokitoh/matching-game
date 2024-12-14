@@ -1,5 +1,5 @@
 import * as React from "react";
-import "./ScoreBoard.css";
+import * as styles from "./ScoreBoard.module.css";
 
 type Props = {
   point: number;
@@ -8,7 +8,7 @@ type Props = {
 
 export const ScoreBoard: React.FC<Props> = ({ point, mistake }) => {
   return (
-    <ul className="game-header">
+    <ul className={styles["game-header"]}>
       <li>point: {point}</li>
       <li>mistake: {mistake}</li>
     </ul>

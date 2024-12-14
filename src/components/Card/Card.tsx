@@ -1,6 +1,6 @@
 import * as React from "react";
 import logo from "~public/logo.svg";
-import "./Card.css";
+import * as styles from "./Card.module.css";
 
 type Status = "up" | "down" | "taken";
 
@@ -15,7 +15,7 @@ type Props = {
 };
 
 type Attr = {
-  readonly className: string;
+  readonly className: keyof typeof styles;
   readonly clickable: boolean;
   readonly renderContent: (text: string) => JSX.Element;
 };
@@ -43,7 +43,7 @@ export const Card: React.FC<Props> = ({ cardData, onClick }) => {
 
   return (
     <div
-      className={`card ${className}`}
+      className={`${styles.card} ${styles[className]}`}
       onClick={clickable ? onClick : undefined}
     >
       {renderContent(cardData.text)}

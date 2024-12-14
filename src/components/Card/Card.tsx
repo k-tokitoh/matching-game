@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 import * as React from "react";
 import logo from "~public/logo.svg";
 import * as styles from "./Card.module.css";
@@ -17,7 +18,7 @@ type Props = {
 type Attr = {
   readonly className: keyof typeof styles;
   readonly clickable: boolean;
-  readonly renderContent: (text: string) => JSX.Element;
+  readonly renderContent: (text: string) => ReactNode;
 };
 
 const attrs = {

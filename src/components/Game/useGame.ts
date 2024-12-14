@@ -6,8 +6,10 @@ type Card = CardData & {
   readonly id: number;
 };
 
-export const useGame = () => {
-  const [cards, seCards] = React.useState<ReadonlyArray<Card>>(iniCards());
+export const useGame = ({ randomize }: { randomize: boolean }) => {
+  const [cards, seCards] = React.useState<ReadonlyArray<Card>>(
+    iniCards({ randomize })
+  );
   const [point, setPoint] = React.useState<number>(0);
   const [mistake, setMistake] = React.useState<number>(0);
 
@@ -69,18 +71,24 @@ export const useGame = () => {
   };
 };
 
-const iniCards = (): ReadonlyArray<Card> => {
+const iniCards = ({
+  randomize,
+}: {
+  randomize: boolean;
+}): ReadonlyArray<Card> => {
   // AからFまでを2つずつ
   const chars = Array.from({ length: 6 }).flatMap((_, i) =>
     new Array(2).fill(String.fromCodePoint("A".charCodeAt(0) + i))
   );
 
-  // ランダムに並び替え
-  for (var i = chars.length - 1; i > 0; i--) {
-    var r = Math.floor(Math.random() * (i + 1));
-    var tmp = chars[i];
-    chars[i] = chars[r];
-    chars[r] = tmp;
+  if (randomize) {
+    // ランダムに並び替え
+    for (var i = chars.length - 1; i > 0; i--) {
+      var r = Math.floor(Math.random() * (i + 1));
+      var tmp = chars[i];
+      chars[i] = chars[r];
+      chars[r] = tmp;
+    }
   }
 
   return chars.map((char, index) => ({

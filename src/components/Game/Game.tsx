@@ -7,7 +7,9 @@ import * as styles from "./Game.module.css";
 import { useGame } from "./useGame";
 
 export const Game: React.FC = () => {
-  const { point, mistake, cards, onCardClick, onClick } = useGame();
+  const { point, mistake, cards, onCardClick, onClick } = useGame({
+    randomize: true,
+  });
 
   return (
     <div className={styles.game} onClick={onClick}>

@@ -1,27 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
+import React from "react";
+import logo from "../public/logo.svg";
 
 function Card(props) {
   let ret;
-  switch(props.card.status) {
-    case 'turnedUp':
+  switch (props.card.status) {
+    case "turnedUp":
       ret = (
         <div className="Card turnedUp" onClick={props.onClick}>
           <p>{props.card.text}</p>
         </div>
       );
       break;
-    case 'turnedDown':
+    case "turnedDown":
       ret = (
         <div className="Card turnedDown" onClick={props.onClick}>
           <img src={logo} />
         </div>
       );
       break;
-    case 'taken':
-      ret = (
-        <div className="Card taken"></div>
-      );
+    case "taken":
+      ret = <div className="Card taken"></div>;
       break;
   }
   return ret;

@@ -2,28 +2,31 @@ import * as React from "react";
 import logo from "~public/logo.svg";
 import "./Card.css";
 
-function Card(props) {
-  let ret;
-  switch (props.card.status) {
-    case "turnedUp":
-      ret = (
-        <div className="Card turnedUp" onClick={props.onClick}>
-          <p>{props.card.text}</p>
-        </div>
-      );
-      break;
-    case "turnedDown":
-      ret = (
-        <div className="Card turnedDown" onClick={props.onClick}>
-          <img src={logo} />
-        </div>
-      );
-      break;
-    case "taken":
-      ret = <div className="Card taken"></div>;
-      break;
-  }
-  return ret;
-}
+type Props = {
+  readonly card: {
+    readonly status: "turnedUp" | "turnedDown" | "taken";
+    readonly text: string;
+  };
+  readonly onClick: () => void;
+};
 
-export default Card;
+export const Card: React.FC<Props> = ({ card, onClick }) => {
+  switch (card.status) {
+    case "turnedUp":
+      return (
+        <div className="Card turnedUp" onClick={onClick}>
+          <p>{card.text}</p>
+        </div>
+      );
+    case "turnedDown":
+      return (
+        <div className="Card turnedDown" onClick={onClick}>
+          <img src={logo} alt="Logo" />
+        </div>
+      );
+    case "taken":
+      return <div className="Card taken"></div>;
+    default:
+      return null;
+  }
+};

@@ -97,7 +97,7 @@ export const Game: React.FC = () => {
   };
 
   return (
-    <div className="Game">
+    <div className="game">
       <GameHeader point={point} mistake={mistake} />
       {renderCards()}
     </div>

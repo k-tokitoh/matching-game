@@ -14,18 +14,18 @@ export const Card: React.FC<Props> = ({ card, onClick }) => {
   switch (card.status) {
     case "turnedUp":
       return (
-        <div className="Card turnedUp" onClick={onClick}>
+        <div className="card up" onClick={onClick}>
           <p>{card.text}</p>
         </div>
       );
     case "turnedDown":
       return (
-        <div className="Card turnedDown" onClick={onClick}>
+        <div className="card down" onClick={onClick}>
           <img src={logo} alt="Logo" />
         </div>
       );
     case "taken":
-      return <div className="Card taken"></div>;
+      return <div className="card taken"></div>;
     default:
       return null;
   }

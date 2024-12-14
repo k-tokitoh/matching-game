@@ -8,7 +8,7 @@ type Props = {
 
 export const GameHeader: React.FC<Props> = ({ point, mistake }) => {
   return (
-    <ul className="GameHeader">
+    <ul className="game-header">
       <li>point: {point}</li>
       <li>mistake: {mistake}</li>
     </ul>

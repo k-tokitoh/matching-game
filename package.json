@@ -22,7 +22,7 @@
     "jsdom": "^25.0.1",
     "prettier": "^3.4.2",
     "typed-css-modules": "^0.9.1",
-    "vite": "^6.0.3",
+    "vite": "^6.3.6",
     "vitest": "^2.1.8"
   },
   "eslintConfig": {
